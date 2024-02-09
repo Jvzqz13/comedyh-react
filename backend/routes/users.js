@@ -9,6 +9,8 @@ import Profile from '../models/profiles.js'
 
 import bcryt from 'bcrypt';
 
+import passport from 'passport';
+
 const router = new Router();
 
 
@@ -48,7 +50,7 @@ router.get('/username/:username', async (req, res) => {
 })
 
 
-//POST - CREATE USER
+//POST - CREATE USER / REGISTER
 router.post('/register', async (req, res) => {
     try {
 
@@ -72,10 +74,48 @@ router.post('/register', async (req, res) => {
     }
 } )
 
+
+
+
+
+
 // POST - SIGN IN
-router.post('/signin', async (req, res) => {
-    console.log(res);
+router.post('/signin', async (req, res, next) => {
+    console.log(`2 - Login Handler ${JSON.stringify(req.body)}`);
+    try {
+        passport.authenticate('local', (err, user) => {
+            console.log('3 - Passport Authenticate cd');
+            
+            req.logIn(user, (err) => {
+                if (err){
+                    return next(err)
+                }
+                res.status(200).json({ redirectTo:'/profile' })
+            })
+            
+        })
+        ( req, res, next )
+
+    } catch (error) {
+        console.log(error);
+        
+    }
 })
+
+//POST - LOG OUT
+router.post('/logout', async (req, res) => {
+    try {
+        res.send('sign out')
+
+    } catch (error) {
+        console.log(error);
+        
+    }
+})
+
+
+
+
 
 
 // PUT - UPDATE BY ID

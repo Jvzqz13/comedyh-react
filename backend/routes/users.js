@@ -7,6 +7,8 @@ import User from '../models/users.js'
 // PROFILE SCHEMA FROM MODELS
 import Profile from '../models/profiles.js'
 
+import bcryt from 'bcrypt';
+
 const router = new Router();
 
 
@@ -20,9 +22,10 @@ router.get('/', async (req, res) => {
 
 // GET - USER BY ID
 router.get('/:id', async( req, res) => {
+
     try {
         const user_id = await User.findById(req.params.id)
-
+ 
         if(!user_id) return res.status(404).json({msg: "User Not Found"})
         else res.status(200).json(user_id)
     } catch (error) {
@@ -30,11 +33,33 @@ router.get('/:id', async( req, res) => {
     }
 })
 
+//GET - USER BY USERNAME
+router.get('/username/:username', async (req, res) => {
+    try {
+        const username = await User.find({username: req.params.username})
+
+        if(!username) return res.status(404).json({msg: "Username Not Found"})
+        else res.status(200).json(username)
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+})
+
 
 //POST - CREATE USER
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     try {
-        const create_User = await User.create(req.body);
+
+        const { email } = req.body;
+
+        
+        let create_User = await User.findOne({ email })
+        if(create_User) return res.status(400).send("User already registered")
+        
+
+        create_User = await User.create(req.body);
 
         // CREATES PROFILE
         await Profile.create({ user_id: create_User._id })
@@ -47,6 +72,11 @@ router.post('/', async (req, res) => {
     }
 } )
 
+// POST - SIGN IN
+router.post('/signin', async (req, res) => {
+    console.log(res);
+})
+
 
 // PUT - UPDATE BY ID
 router.put('/:id', async(req, res) => {
@@ -54,7 +84,11 @@ router.put('/:id', async(req, res) => {
 
         const { id } = req.params;
         const { body } = req;
-        
+        const { password } = req.body;
+
+        const hashedPassword = await bcryt.hash(password, 10);
+        req.body.password = hashedPassword;
+
         const update_user = await User.findByIdAndUpdate( id, body, {new: true});
         res.json({update_user})
         

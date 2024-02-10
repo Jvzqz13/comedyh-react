@@ -63,7 +63,7 @@ router.post('/register', async (req, res) => {
         // CREATES PROFILE
         await Profile.create({ user_id: create_User._id })
 
-        res.status(201).json(create_User)
+        res.status(201).json(create_User).send("Registered! Welcome")
         
     } catch (error) {
         console.log(error);

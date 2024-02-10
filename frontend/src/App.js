@@ -1,14 +1,27 @@
 import './App.css';
-// import Login from './pages/Login';
+import { Routes, Route } from 'react-router-dom'
+import Login from './pages/Login';
 import Register from './pages/Register';
+import Home from './pages/Home';
 
 function App() {
   return (
     <div className="App">
-      {/* <h1> Home </h1> */}
-      <Register /> 
-      {/* <Login /> */}
+      <Routes>
 
+        {[ '/', '/login' ].map((path) =>(
+          <Route key={Element} path={path} element = {<Login /> } />
+        ) )  }
+
+      < Route path='/register'  element={<Register />} />
+      
+      < Route path='/Home' element={ <Home /> }  />
+      
+
+
+
+
+      </Routes>
     </div>
   );
 }

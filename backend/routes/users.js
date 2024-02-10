@@ -13,17 +13,6 @@ import passport from 'passport';
 
 const router = new Router();
 
-// import session from 'express-session';
-// router.use(
-//     session({
-//         secret: "SECRETNOW",
-//     resave: false,
-//     saveUninitialized: true
-//     })
-// )
-
-
-
 // GET - ALL USERS
 router.get('/', async (req, res) => {
     const users = await User.find({})

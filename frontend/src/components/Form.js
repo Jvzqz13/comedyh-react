@@ -44,7 +44,7 @@ function FormComponent ({onSubmit, buttonText, signInForm}) {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" ref={passwordInputRef} />
         </Form.Group>
-        <Button type='submit' variant="secondary">{buttonText}</Button>{' '}
+        <Button type='submit' variant="secondary">{buttonText}</Button>
       </Form>
         
 

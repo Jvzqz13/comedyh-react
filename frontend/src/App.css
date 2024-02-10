@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.formstyle {
+  background-color: gray;
+  width: 80%;
+  margin: auto;
+  padding: 3rem;
+}

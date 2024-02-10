@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         minLength: 8,
         maxLength: 20,
-        require: true
+        required: true
     },
     username: {
         type: String,
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     toJSON:{
         transform: function(doc, retDoc){
             delete retDoc.password;
-            retDoc;
+            return retDoc;
         }
     }
 })

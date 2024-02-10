@@ -4,6 +4,7 @@ import express from 'express';
 import morgan from 'morgan';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
+import cors from 'cors'
 
 // user passport to look for email
 import userPassport from './models/users.js';
@@ -29,6 +30,7 @@ app.use(session ({
  app.use(passport.initialize());
  app.use(passport.session());
 
+app.use(cors())
 
 
 // serializes User

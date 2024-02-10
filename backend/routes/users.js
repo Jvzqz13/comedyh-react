@@ -92,13 +92,10 @@ function(req, res){
 
 //POST - LOG OUT
 router.post('/logout', async (req, res) => {
-    try {
-        res.send('sign out')
-
-    } catch (error) {
-        console.log(error);
-        
-    }
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/signedout')
+    })
 })
 
 

@@ -69,6 +69,10 @@ app.get('/', (req, res) => {
     res.send('Welcome to the API')
 })
 
+app.get('/signedout', (req, res) => {
+    res.send('Logged Out of the API')
+})
+
 
 
 // Logic for passport

@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-
 // USER SCHEMA FROM MODELS
 import User from '../models/users.js'
 
@@ -11,7 +10,17 @@ import bcryt from 'bcrypt';
 
 import passport from 'passport';
 
+
 const router = new Router();
+
+// import session from 'express-session';
+// router.use(
+//     session({
+//         secret: "SECRETNOW",
+//     resave: false,
+//     saveUninitialized: true
+//     })
+// )
 
 
 
@@ -80,27 +89,17 @@ router.post('/register', async (req, res) => {
 
 
 // POST - SIGN IN
-router.post('/signin', async (req, res, next) => {
-    console.log(`2 - Login Handler ${JSON.stringify(req.body)}`);
-    try {
-        passport.authenticate('local', (err, user) => {
-            console.log('3 - Passport Authenticate cd');
-            
-            req.logIn(user, (err) => {
-                if (err){
-                    return next(err)
-                }
-                res.status(200).json({ redirectTo:'/profile' })
-            })
-            
-        })
-        ( req, res, next )
-
-    } catch (error) {
-        console.log(error);
-        
+router.post('/signin',
+passport.authenticate('local', { failureRedirect:'/signin'}),
+function(req, res){
+        console.log(`1 - Login Handler ${JSON.stringify(req.body)}`);
+        res.redirect('/')
     }
-})
+)
+
+
+
+
 
 //POST - LOG OUT
 router.post('/logout', async (req, res) => {

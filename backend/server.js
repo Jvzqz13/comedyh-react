@@ -2,51 +2,65 @@ import './loadEnv.js'
 import { conn } from './db/conn.js'; conn();
 import express from 'express'; 
 import morgan from 'morgan';
+import session from 'express-session';
 import bcrypt from 'bcrypt';
 
 // user passport to look for email
 import userPassport from './models/users.js';
 
 // Import Passport - manages Auth
-import passport  from 'passport';
+
+import passport from 'passport';
+
 import LocalStrategy from 'passport-local'
-
-// cookieSession 
-import cookieSession from 'cookie-session';
-
 
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// expression-session
+app.use(session ({ 
+    secret: 'SECRETNOW',
+    resave: false,
+    saveUninitialized: false,
+ }))
 
-// Secret code from .env for cookie session
-const  SECRETNOW = process.env.SECRETN;
-const  SECRETOLD = process.env.SECRETO;
+ //Use Passport
+ app.use(passport.initialize());
+ app.use(passport.session());
 
-// cookie to help (passport)
-app.use(cookieSession({
-    name:'comedy-Auth',
-    keys:[ SECRETNOW, SECRETOLD ],
-    maxAge: 60 * 60 *24
-}))
 
-import userRouters from './routes/users.js'
-import profileRouter from './routes/profiles.js'
-
-//Use Passport
-app.use(passport.initialize());
-app.use(passport.session());
 
 // serializes User
 passport.serializeUser((user, done) => {
-    console.log(`6767676767 Seralized user: ${JSON.stringify(user)}`)
-    return done( null, user.id );
+    console.log(` ====> Seralized user: ${JSON.stringify(user)}`)
+    try{
+
+        return done( null, user.id );
+    } catch(err) {
+            console.log(err);
+    }
+})
+
+// Deserializes user
+passport.deserializeUser(function(id, done){
+    console.log(` ====> DESeralized user: ${JSON.stringify(id)}`)
+    try {
+            const user = userPassport.findById(id);
+            done(null, user)
+    } catch (err) {
+        console.log(err);
+    }
+
 })
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }))
+
+import userRouters from './routes/users.js'
+import profileRouter from './routes/profiles.js'
+import { parse } from 'dotenv';
 
 app.use('/api/users', userRouters);
 app.use('/api/profiles', profileRouter);
@@ -57,46 +71,31 @@ app.get('/', (req, res) => {
 
 
 
-
-
-
 // Logic for passport
-passport.use('local', new LocalStrategy({passReqToCallback: true},
+passport.use('local' , new LocalStrategy({passReqToCallback: true},
 
-    // username will be refering to the email we're verifying
-    async (res, username, password, done) => {
-
-        try {
-
-
-            console.log( `1 -Local Strategy ${ JSON.stringify(username) }` );
-        //finds email in db
-        const email = await userPassport.findOne({username})
+    async  function( req, username, password, done){
+        console.log(`2 ====> ${JSON.stringify(req.body)}` );
+             
+        const { email  } = req.body;
         
-        if(!email) {
+        const userEmail = await userPassport.findOne({email: email})
+        console.log(userEmail);
+
+        if(!userEmail){
             return done(null, false)
         }
-        const result = await new Promise ((resolve, reject) => {
-            bcrypt.compare(password, email.password , (err, res) => {
-                if(err) reject(err);
-                resolve(res)
+        const result = await bcrypt.compare(password, userEmail.password)
 
-            } )
-
-        console.log(`result : ${result}`);
-        console.log(`user from db ${JSON.stringify(email)}`);
-        return done(null, { id: "test" })
+        if(result){
+            done(null, userEmail)
+        } else {
+            return done('Password or email is incorrect', null)
         }
-        )
-            
-        } catch (error) {
-            console.log(error);
-            
-        }
-            
-    
     }
 ))
+            
+
 
 
 app.all('*', async (req, res) =>{

@@ -6,6 +6,9 @@ import Home from './pages/Home';
 
 
 function App() {
+      const token = localStorage.getItem('Token')
+      console.log(` 'TOKEN= ${ token } `);
+
   return (
     <div className="App">
       <Routes>

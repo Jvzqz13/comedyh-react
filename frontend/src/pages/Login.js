@@ -7,7 +7,7 @@ function Login () {
 
     const handleLogin = async (formData) =>{
         try {
-            const res = await axios.post('http://localhost:4000/api/users/signin', {
+            const res = await axios.post('http://localhost:4000/api/users/login', {
                 email: formData.email,
                 password: formData.password
             })

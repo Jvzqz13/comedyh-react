@@ -6,7 +6,7 @@ import User from '../models/users.js'
 // PROFILE SCHEMA FROM MODELS
 import Profile from '../models/profiles.js'
 
-import bcryt from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 import passport from 'passport';
 
@@ -63,7 +63,7 @@ router.post('/register', async (req, res) => {
         // CREATES PROFILE
         await Profile.create({ user_id: create_User._id })
 
-        res.status(201).json(create_User).send("Registered! Welcome")
+        res.status(201).json(create_User)
         
     } catch (error) {
         console.log(error);
@@ -73,21 +73,11 @@ router.post('/register', async (req, res) => {
 
 
 
-
-
-
-// POST - SIGN IN
-router.post('/signin',
-passport.authenticate('local', { failureRedirect:'/signin'}),
-function(req, res){
-        console.log(`1 - Login Handler ${JSON.stringify(req.body)}`);
-        res.redirect('/')
-    }
-)
-
-
-
-
+router.post('/login', 
+passport.authenticate('local', 
+{successRedirect: '/', failureRedirect: '/login' }))
+        
+    
 
 //POST - LOG OUT
 router.post('/logout', async (req, res) => {
@@ -110,7 +100,7 @@ router.put('/:id', async(req, res) => {
         const { body } = req;
         const { password } = req.body;
 
-        const hashedPassword = await bcryt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         req.body.password = hashedPassword;
 
         const update_user = await User.findByIdAndUpdate( id, body, {new: true});

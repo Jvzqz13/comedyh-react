@@ -3,8 +3,11 @@ import { conn } from './db/conn.js'; conn();
 import express from 'express'; 
 import morgan from 'morgan';
 import session from 'express-session';
-import bcrypt from 'bcrypt';
+import bcrypt, { hash } from 'bcrypt';
 import cors from 'cors'
+import cookieParser from 'cookie-parser';
+const SECRETN = process.env.SECRETN;
+const SECRETO = process.env.SECRETO;
 
 // user passport to look for email
 import userPassport from './models/users.js';
@@ -15,20 +18,27 @@ import passport from 'passport';
 
 import LocalStrategy from 'passport-local'
 
+import userRouters from './routes/users.js'
+import profileRouter from './routes/profiles.js'
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+
 // expression-session
-app.use(session ({ 
-    secret: 'SECRETNOW',
+app.use(session ({
+    name: "Auth-Sesh", 
+    secret: [ SECRETN, SECRETO ],
     resave: false,
     saveUninitialized: false,
- }))
+    cookie: {secure: 'auto'}
+}))
 
- //Use Passport
- app.use(passport.initialize());
- app.use(passport.session());
+app.use(cookieParser());
+
+//Use Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(cors())
 
@@ -37,8 +47,7 @@ app.use(cors())
 passport.serializeUser((user, done) => {
     console.log(` ====> Seralized user: ${JSON.stringify(user)}`)
     try{
-
-        return done( null, user.id );
+        return done( null, user._id);
     } catch(err) {
             console.log(err);
     }
@@ -46,7 +55,7 @@ passport.serializeUser((user, done) => {
 
 // Deserializes user
 passport.deserializeUser(function(id, done){
-    console.log(` ====> DESeralized user: ${JSON.stringify(id)}`)
+    console.log(` ====> DeSeralized user: ${JSON.stringify(id)}`)
     try {
             const user = userPassport.findById(id);
             done(null, user)
@@ -60,9 +69,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }))
 
-import userRouters from './routes/users.js'
-import profileRouter from './routes/profiles.js'
-import { parse } from 'dotenv';
+
 
 app.use('/api/users', userRouters);
 app.use('/api/profiles', profileRouter);
@@ -78,37 +85,46 @@ app.get('/signedout', (req, res) => {
 
 
 // Logic for passport
-passport.use('local' , new LocalStrategy({passReqToCallback: true},
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    session: true
+}, 
+ async function (email, password, done){
+    console.log(` USER=> ${email}, PASSWORD=>${password}` );
 
-    async  function( req, username, password, done){
-        console.log(`2 ====> ${JSON.stringify(req.body)}` );
-             
-        const { email  } = req.body;
-        
-        const userEmail = await userPassport.findOne({email: email})
-        console.log(userEmail);
+    const user = await userPassport.findOne({ email })
+    console.log(` EMAIL => ${ user }`);
+    
+    if(!user){
+        return done(null, false)
+    } 
 
-        if(!userEmail){
-            return done(null, false)
-        }
-        const result = await bcrypt.compare(password, userEmail.password)
-
-        if(result){
-            done(null, userEmail)
-        } else {
-            return done('Password or email is incorrect', null)
-        }
+    const result = await new Promise((resolve, reject) => {
+            bcrypt.compare(password, user.password, (err, res) =>{
+                if(err) reject(err);
+                resolve(res)
+            } )
+    })
+    console.log(`RESULT ${ result}`);
+    if(result){
+        return done(null, user)
+    } else {
+        return done(' Password or email is incorrect', null)
     }
+
+}
 ))
             
 
 
 
-app.all('*', async (req, res) =>{
+app.all('*', (req, res) =>{
 // CATCH ALL ROUTE
     try {
-        res.send('404 this page missing')
-        
+        // res.status(404).send('404 this page missing')
+        console.log(`ERROR: ${ req }`);
+
     } catch (error) {
         console.log(error);      
     }

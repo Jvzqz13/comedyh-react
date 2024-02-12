@@ -50,7 +50,7 @@ function YouTubeDisplay ( {playlistIds} ) { // <= {playlistIDs}
 
         {playlistData.map((playlist, index) => (
             <div key={index}>
-                <h4> playlist {index +1 } </h4>
+                {/* <h4> playlist  {index +1 }  </h4> */}
                 <YoutubeComponent playlistItems={playlist} />
             </div>
         )

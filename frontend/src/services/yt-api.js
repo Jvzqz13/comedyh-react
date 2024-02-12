@@ -7,13 +7,13 @@ import axios from 'axios'
 const YOUTUBE_KEY = "AIzaSyDZaNZE3RvlZTnSOIJit-yiFlelDQ_YYxI" 
 
 
-export async function YouTubeDataPlayList () {   // <= here
+export async function YouTubeDataPlayList ( playlistId  ) {   // <= here
     try {
             const res = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
                 params:{
                     key: YOUTUBE_KEY,
                     part: 'snippet',
-                    playlistId: "PL-i3EV1v5hLeT91DuXckUf6tsbMfLgZno" //<= here
+                    playlistId: playlistId //<= here
                 }
             });
             if (!res.data || !res.data.items || res.data.items.length === 0) {

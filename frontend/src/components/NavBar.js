@@ -6,12 +6,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import LogoutButton from "../components/LogoutButton";
 
 
-function NavBar () {
+function NavBar () {  
+
     return (
        
             <Navbar bg='dark' data-bs-theme='dark'  expand="lg" className="bg-body-tertiary">
               <Container fluid>
-                
+
                 <Navbar.Brand href="#"> LOGO </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="navbarScroll" />

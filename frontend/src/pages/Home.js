@@ -1,5 +1,6 @@
 import LogoutButton from "../components/LogoutButton";
 import NavBar from "../components/NavBar";
+import SideBar from "../components/SideBar";
 import YouTubeDisplay from "../components/YouTubeDisplay";
 
 
@@ -9,16 +10,28 @@ function Home () {
     "PLa7q8UDa6tvGRXE3-pdbiDQ-5_jRpqOkf", "PLtIAhyXxo11_FXQgG9rF6ud4FSDEFKbE9" ]
 
     return ( 
-       <div>
+       <div className="homeLayout">
+
         <NavBar />
+         
+         <div className="mainContent" > 
 
-        <h1> HOME </h1>
+            <SideBar />
+            
 
-        <YouTubeDisplay  playlistIds={playlistIds} /> 
+            <div className="content" > 
 
-        {/* <YouTubeDisplay  /> */}
+
+            <h1> HOME </h1>
+
+            <YouTubeDisplay  playlistIds={playlistIds} /> 
+
+            {/* <YouTubeDisplay  /> */}
+            </div>
+         </div>
+        
+        
         <LogoutButton />
-       
     
         </div>
     )

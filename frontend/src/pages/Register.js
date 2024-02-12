@@ -14,6 +14,7 @@ function Register () {
                 password: formData.password
             } ) 
             console.log(res);
+            localStorage.setItem("comedyUser", JSON.stringify(res.data))
             if(res.status === 201){
                 navigate('/Home')
             }

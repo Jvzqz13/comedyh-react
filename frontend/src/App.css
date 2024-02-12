@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  background-color: gray;
+  background-color: rgb(39, 39, 39);
+  color: rgb(161, 160, 160);
+
 }
 
 .App-logo {
@@ -47,8 +49,8 @@
 
 .youtubeComponent {
   max-width: fit-content;
-  border: 2px solid red;
-  padding: 1rem;
+  /* border: 2px solid red; */
+  padding: 2rem;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -56,7 +58,7 @@
     p {
       padding: 0;
       font-weight: 600;
-      border: 2px solid red;
+      /* border: 2px solid red; */
 
     }
 }
@@ -64,7 +66,7 @@
 .video-container{
   width: 100%;
   max-width: 800px;
-  border: 2px solid green;
+  /* border: 2px solid green; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -75,4 +77,18 @@
   margin-right: auto;
   width: 50%;
 
+}
+
+.homeLayout{
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  display: flex;
+  flex: 1;
+}
+
+.content{
+  flex: 1;
 }

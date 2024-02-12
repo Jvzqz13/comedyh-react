@@ -19,6 +19,7 @@ function Login () {
             }
 
             console.log(res);
+            localStorage.setItem("comedyUser", JSON.stringify(res.data))
            
         } catch (error) {
             console.log(error);            

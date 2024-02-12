@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button'
 import '../App.css';
 import { useRef } from 'react';
 
-
 function FormComponent ({onSubmit, buttonText, signInForm}) {
     const emailInputRef = useRef(null);
     const passwordInputRef = useRef(null);
@@ -12,6 +11,7 @@ function FormComponent ({onSubmit, buttonText, signInForm}) {
         e.preventDefault();
         const email = emailInputRef.current.value;
         const password = passwordInputRef.current.value;
+
 
         console.log(` EMAIL: ${emailInputRef.current.value} `);
         console.log(` PASSWORD: ${passwordInputRef.current.value} `);

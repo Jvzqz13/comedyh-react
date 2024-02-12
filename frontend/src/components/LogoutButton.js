@@ -4,7 +4,7 @@ function LogoutButton () {
 
     const handleLogout = (e) => {
         e.preventDefault();
-        localStorage.clear();
+        localStorage.clear("comedyUser");
         window.location.href = '/';  
     }
 

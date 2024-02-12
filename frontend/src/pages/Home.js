@@ -1,12 +1,16 @@
 import LogoutButton from "../components/LogoutButton";
+import NavBar from "../components/NavBar";
 import YouTubeDisplay from "../components/YouTubeDisplay";
+
 
 function Home () {
 
     return ( 
        <div>
-        <YouTubeDisplay />
+        <NavBar />
+        <h1> HOME </h1>
 
+        <YouTubeDisplay  />
         <LogoutButton />
        
     

@@ -1,9 +1,7 @@
 import YoutubeRender from "../components/YouTubeRender";
 import { useState, useEffect } from "react";
+
 import { YouTubeDataPlayList } from "../services/yt-api";
-
-
-console.log(YouTubeDataPlayList);
 
 function YouTubeDisplay () {
     const [ playlistItems, setPlaylistItems ] = useState([]);
@@ -38,8 +36,6 @@ function YouTubeDisplay () {
     return ( 
        <div>
         <YoutubeRender playlists={playlistItems}  />
-
-       
     
         </div>
     )

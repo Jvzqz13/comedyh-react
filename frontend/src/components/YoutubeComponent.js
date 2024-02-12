@@ -1,21 +1,22 @@
-import YouTubePlayer from 'react-youtube';
-
 
 function YoutubeComponent ({playlistItems}) {
 
     return (
 
         <div className='youtubeComponent'>
-            <ul>
+
                 {playlistItems && playlistItems.map( item => (
-                    <li key={item.id}>
-                        <h2> { item.title } </h2>
-                        {/* <p> { item.description } </p> */}
-                        <YouTubePlayer videoId={item.id}/>
-                        <img src={ item.thumbnail} alt="Thumbnail"  />
-                    </li>
+                    <div  key={item.id} className='video-container' >
+                        <iframe
+                            src= {`https://www.youtube.com/embed/${item.id}`}
+                            title={ item.title }
+                            width="100%"
+                            allowFullScreen
+                        />
+                    </div>
+                
                 ))}
-            </ul>
+            
         </div>
         )
 }

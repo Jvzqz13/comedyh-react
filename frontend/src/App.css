@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: gray;
 }
 
 .App-logo {
@@ -45,6 +46,23 @@
 }
 
 .youtubeComponent {
+  max-width: fit-content;
   border: 2px solid red;
+  padding: 1rem;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+
+}
+
+.video-container{
+  width: 100%;
+  max-width: 800px;
+}
+
+.searchbar {
+  margin-left: auto;
+  margin-right: auto;
   width: 50%;
+
 }

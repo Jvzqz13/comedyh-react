@@ -7,11 +7,13 @@ function YoutubeComponent ({playlistItems}) {
 
                 {playlistItems && playlistItems.map( item => (
                     <div  key={item.id} className='video-container' >
+                        <p> {item.title} </p>
                         <iframe
                             src= {`https://www.youtube.com/embed/${item.id}`}
                             title={ item.title }
                             width="100%"
                             allowFullScreen
+                        
                         />
                     </div>
                 

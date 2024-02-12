@@ -49,15 +49,25 @@
   max-width: fit-content;
   border: 2px solid red;
   padding: 1rem;
-  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   gap: 1rem;
+    p {
+      padding: 0;
+      font-weight: 600;
+      border: 2px solid red;
 
+    }
 }
 
 .video-container{
   width: 100%;
   max-width: 800px;
+  border: 2px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .searchbar {

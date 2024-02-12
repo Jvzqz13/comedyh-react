@@ -1,6 +1,7 @@
-//import this to app.js 
-
 import axios from 'axios'
+
+// YOUTUBE API GET YOUTUBE INFO/VIDEOS
+
 
 const YOUTUBE_KEY = "AIzaSyDZaNZE3RvlZTnSOIJit-yiFlelDQ_YYxI" 
 
@@ -23,7 +24,7 @@ export async function YouTubeDataPlayList () {
                 id: item.snippet.resourceId.videoId,
                 title: item.snippet.title,
                 description: item.snippet.description,
-                thumbnail: item.snippet.thumbnails.default.url
+                thumbnail: item.snippet.thumbnails
             }))
             console.log("videos=>", videos);
             return videos;

@@ -43,3 +43,8 @@
   margin: auto;
   padding: 3rem;
 }
+
+.youtubeComponent {
+  border: 2px solid red;
+  width: 50%;
+}

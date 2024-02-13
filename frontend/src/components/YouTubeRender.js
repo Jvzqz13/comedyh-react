@@ -3,8 +3,8 @@ import YoutubeComponent from "./YoutubeComponent";
 
 
 function YoutubeRender ({playlists}) {
-    return( 
 
+    return( 
         <YoutubeComponent playlistItems ={playlists} />
 
     )

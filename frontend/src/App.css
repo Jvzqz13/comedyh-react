@@ -99,3 +99,6 @@ html {
 .content{
   flex: 1;
 }
+.specialSidebar{
+  height: 100vh;
+}

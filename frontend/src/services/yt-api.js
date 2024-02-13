@@ -13,7 +13,8 @@ export async function YouTubeDataPlayList ( playlistId  ) {   // <= here
                 params:{
                     key: YOUTUBE_KEY,
                     part: 'snippet',
-                    playlistId: playlistId //<= here
+                    playlistId: playlistId, //<= here
+                    maxResults: 6
                 }
             });
             if (!res.data || !res.data.items || res.data.items.length === 0) {
@@ -25,8 +26,10 @@ export async function YouTubeDataPlayList ( playlistId  ) {   // <= here
                 title: item.snippet.title,
                 description: item.snippet.description,
                 thumbnail: item.snippet.thumbnails
+                
             }))
-                .filter(video => video.title !== "Private video" )    
+                .filter(video => video.title !== "Private video" && video.title !== "Deleted video" )
+                .slice(0,4)    
 
                 console.log("videos=>", videos);
                 return videos;

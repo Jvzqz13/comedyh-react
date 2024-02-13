@@ -1,15 +1,11 @@
-// import YoutubeRender from "../components/YouTubeRender";
 import { useState, useEffect } from "react";
-
-import { YouTubeDataPlayList } from "../services/yt-api"; // YOutubeAPI
+import { YouTubeSpecials } from '../services/yt-api-specials' // YOutubeAPI
 import YoutubeComponent from "./YoutubeComponent";
 
-// add playlistID as a param
 
 function YouTubeDisplay ( {playlistIds} ) { // <= {playlistIDs}
     const [ playlistData, setPlaylistData ] = useState([]) 
 
-    // const [ playlistItems, setPlaylistItems ] = useState([]); //<= remove
 
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(null)
@@ -20,12 +16,9 @@ function YouTubeDisplay ( {playlistIds} ) { // <= {playlistIDs}
                 const playlistDataP = playlistIds.map(id => YouTubeDataPlayList(id))
                 const playlists = await Promise.all(playlistDataP)
 
-                // const data = await YouTubeDataPlayList();  <= remove
-                // console.log(`YOUTUBE API RESPONSE =>`, data); 
+                
 
                setPlaylistData(playlists)
-
-                // setPlaylistItems(data); <= remove
 
                 setLoading(false)
                 

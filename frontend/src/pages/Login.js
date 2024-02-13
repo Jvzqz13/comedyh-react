@@ -27,7 +27,7 @@ function Login () {
     }
 
     return (
-        <div>
+        <div className="loginform">
             <h1> Login </h1>
 
             <FormComponent onSubmit={handleLogin} buttonText={'Log In'} signInForm={true}  />

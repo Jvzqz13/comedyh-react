@@ -1,3 +1,6 @@
+html {
+  background-color: rgb(39, 39, 39);
+}
 .App {
   text-align: center;
   background-color: rgb(39, 39, 39);
@@ -42,9 +45,13 @@
 
 .formstyle {
   background-color: gray;
-  width: 80%;
+  width: 30%;
   margin: auto;
   padding: 3rem;
+}
+
+.loginform, .registerform h1 {
+  margin-top: 6rem;
 }
 
 .youtubeComponent {

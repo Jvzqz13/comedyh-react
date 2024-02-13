@@ -6,7 +6,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import LogoutButton from "../components/LogoutButton";
 
 
-function NavBar () {  
+function NavBar ({ search, setSearch, searchVid }) {
+  
+  const handleSearchInput = (e) => {
+    setSearch(e.target.value)
+  }
+
+  const handleSearchButton = () =>{
+    searchVid();
+  }
 
     return (
        
@@ -30,8 +38,10 @@ function NavBar () {
                       placeholder="Search"
                       className="me-2"
                       aria-label="Search"
+                      value={search}
+                      onChange={handleSearchInput}
                     />
-                    <Button variant="dark">SEARCH</Button>
+                    <Button variant="dark" onClick={handleSearchButton} >SEARCH</Button>
 
                   </Form>
                     <LogoutButton />

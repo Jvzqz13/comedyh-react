@@ -28,7 +28,7 @@ function Register () {
     }
 
     return(
-        <div>
+        <div className="registerform">
 
         <h1> Register </h1>
         <FormComponent onSubmit={handleRegister} buttonText={'Register'} signInForm={false} />

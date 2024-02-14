@@ -18,7 +18,7 @@ import passport from 'passport';
 const router = new Router();
 
 // GET - ALL USERS
-router.get('/getusers',  async (req, res) => {
+router.get('/',  async (req, res) => {
     const users = await User.find({})
     res.status(200).json(users)
 })

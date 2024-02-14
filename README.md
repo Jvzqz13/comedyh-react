@@ -1,8 +1,28 @@
-Notes - i'll re-do later
+## Comedy Youtube Clone Using Youtube API ##
 
-- I used npm passport to be able to login and logout
--  i used for reference:
-      -   https://github.com/jaredhanson/passport
-      -   YT Devshack Local Auth Strategy
-   - Using the latest verison of passport@7.0
-   -   i had to adjust to be able to use mongoose@8.1.1/express@4.18.2/node@21.6.0
+This project was mainly to have a youtube clone for comedy only
+
+## Built with
+* MongoDB
+* ExpressJS
+* React
+* Node 
+* React Bootstrap
+## Dependencies
+* Bcrypt
+* Coookie-parser
+* Cors
+* Dotenv
+* Express-session
+* jsonwebtoken
+* Mongoose
+* Passport/Passport-local
+
+## Youtube API HTTP Request
+* GET https://www.googleapis.com/youtube/v3/playlists
+* Get Youtube API Key 
+-- https://developers.google.com/youtube/v3 
+
+
+
+

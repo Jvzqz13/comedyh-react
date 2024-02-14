@@ -113,7 +113,7 @@ passport.use(new LocalStrategy({
     })
     // const token = jwt.sign({ user }, process.env.SECRET,{ expiresIn: "24h" }) //<==token 
 
-    console.log(`RESULT ${ result, token}`);
+    console.log(`RESULT ${ result}`);
     if(result){
         return done(null, user)
     } else {

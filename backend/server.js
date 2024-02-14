@@ -77,9 +77,9 @@ app.use(express.urlencoded({ extended:true }))
 app.use('/api/users', userRouters);
 app.use('/api/profiles', profileRouter);
 
-// app.get('/', verifyToken,  (req, res) => {
-//     res.send('Welcome to the API')
-// })
+app.get('/', (req, res) => {
+    res.send('Welcome to the API')
+})
 
 
 app.get('/signedout', (req, res) => {

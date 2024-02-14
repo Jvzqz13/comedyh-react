@@ -11,6 +11,7 @@ function Register () {
         try {
             const res = await axios.post('https://comedy-backend.onrender.com/api/users/register', 
             // const res = await axios.post('http://localhost:4000/api/users/register', //<==testing
+            
             {
                 email: formData.email,
                 password: formData.password

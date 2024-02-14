@@ -12,18 +12,20 @@ import passport from 'passport';
 
 import jwt from 'jsonwebtoken'
 
+import verifyToken from '../token/verifyToken.js';
+
 
 const router = new Router();
 
 // GET - ALL USERS
-router.get('/', async (req, res) => {
+router.get('/', verifyToken ,  async (req, res) => {
     const users = await User.find({})
     res.status(200).json(users)
 })
 
 
 // GET - USER BY ID
-router.get('/:id', async( req, res) => {
+router.get('/:id', verifyToken, async( req, res) => {
 
     try {
         const user_id = await User.findById(req.params.id)
@@ -36,7 +38,7 @@ router.get('/:id', async( req, res) => {
 })
 
 //GET - USER BY USERNAME
-router.get('/username/:username', async (req, res) => {
+router.get('/username/:username',verifyToken  , async (req, res) => {
     try {
         const username = await User.find({username: req.params.username})
 
@@ -65,7 +67,7 @@ router.post('/register', async (req, res) => {
         // CREATES PROFILE
         await Profile.create({ user_id: create_User._id })
 
-        const token = jwt.sign({ create_User }, process.env.SECRET)
+        const token = jwt.sign({ create_User }, process.env.SECRET, { expiresIn: "24h"})
         console.log("token=>", token);
         console.log("user=>", create_User);
         res.status(201).json(create_User)
@@ -98,7 +100,7 @@ router.post('/logout', async (req, res) => {
 
 
 // PUT - UPDATE BY ID
-router.put('/:id', async(req, res) => {
+router.put('/:id', verifyToken , async(req, res) => {
     try {
 
         const { id } = req.params;
@@ -118,7 +120,7 @@ router.put('/:id', async(req, res) => {
 })
 
 // DELETE BY ID
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', verifyToken , async(req, res) => {
     try {
 
         const { id } = req.params;

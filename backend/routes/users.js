@@ -10,6 +10,8 @@ import bcrypt from 'bcrypt';
 
 import passport from 'passport';
 
+import jwt from 'jsonwebtoken'
+
 
 const router = new Router();
 
@@ -63,6 +65,9 @@ router.post('/register', async (req, res) => {
         // CREATES PROFILE
         await Profile.create({ user_id: create_User._id })
 
+        const token = jwt.sign({ create_User }, process.env.SECRET)
+        console.log("token=>", token);
+        console.log("user=>", create_User);
         res.status(201).json(create_User)
         
     } catch (error) {

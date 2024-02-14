@@ -9,6 +9,9 @@ import cookieParser from 'cookie-parser';
 const SECRETN = process.env.SECRETN;
 const SECRETO = process.env.SECRETO;
 
+import verifyToken from './token/verifyToken.js';
+import jwt from 'jsonwebtoken';
+
 // user passport to look for email
 import userPassport from './models/users.js';
 
@@ -45,7 +48,7 @@ app.use(cors())
 
 // serializes User
 passport.serializeUser((user, done) => {
-    console.log(` ====> Seralized user: ${JSON.stringify(user)}`)
+    console.log(`Seralized user =>: ${JSON.stringify(user)}`)
     try{
         return done( null, user._id);
     } catch(err) {
@@ -55,7 +58,7 @@ passport.serializeUser((user, done) => {
 
 // Deserializes user
 passport.deserializeUser(function(id, done){
-    console.log(` ====> DeSeralized user: ${JSON.stringify(id)}`)
+    console.log(`Deseralized user =>: ${JSON.stringify(id)}`)
     try {
             const user = userPassport.findById(id);
             done(null, user)
@@ -74,9 +77,10 @@ app.use(express.urlencoded({ extended:true }))
 app.use('/api/users', userRouters);
 app.use('/api/profiles', profileRouter);
 
-app.get('/', (req, res) => {
+app.get('/', verifyToken,  (req, res) => {
     res.send('Welcome to the API')
 })
+
 
 app.get('/signedout', (req, res) => {
     res.send('Logged Out of the API')
@@ -100,13 +104,16 @@ passport.use(new LocalStrategy({
         return done(null, false)
     } 
 
+    
     const result = await new Promise((resolve, reject) => {
-            bcrypt.compare(password, user.password, (err, res) =>{
-                if(err) reject(err);
-                resolve(res)
-            } )
+        bcrypt.compare(password, user.password, (err, res) =>{
+            if(err) reject(err);
+            resolve(res)
+        } )
     })
-    console.log(`RESULT ${ result}`);
+    const token = jwt.sign({ user }, process.env.SECRET) //<==token 
+
+    console.log(`RESULT ${ result, token}`);
     if(result){
         return done(null, user)
     } else {

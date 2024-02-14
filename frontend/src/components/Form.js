@@ -17,12 +17,17 @@ function FormComponent ({onSubmit, buttonText, signInForm}) {
         console.log(` PASSWORD: ${passwordInputRef.current.value} `);
 
         if(email === ""){
+          alert('you need an email')
           emailInputRef.current.focus();
           return;
         }
         if(password === ""){
           passwordInputRef.current.focus();
           return; 
+        }
+
+        if (email === password){
+          console.log('oooooo');
         }
 
         if (onSubmit && typeof onSubmit === 'function'){

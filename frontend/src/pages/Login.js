@@ -12,7 +12,7 @@ function Login () {
                 password: formData.password
             })
             if(res.status === 200){
-                navigate('/Home')
+                navigate('/https://comedy-backend.onrender.com/home')
             }
             if(res.status !== 200){
                 return 

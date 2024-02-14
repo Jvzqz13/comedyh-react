@@ -7,7 +7,7 @@ import axios from 'axios'
 
 
 const YOUTUBE_KEY = "AIzaSyDZaNZE3RvlZTnSOIJit-yiFlelDQ_YYxI";
-console.log('APIKEY=>', YOUTUBE_KEY);
+// console.log('APIKEY=>', YOUTUBE_KEY);
 
 
 export async function YouTubeDataPlayList ( playlistId  ) {   // <= here

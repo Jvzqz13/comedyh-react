@@ -9,14 +9,16 @@ function Register () {
 
     const handleRegister = async (formData) =>{
         try {
-            const res = await axios.post('https://comedy-backend.onrender.com/api/users/register', {
+            // const res = await axios.post('https://comedy-backend.onrender.com/api/users/register', 
+            const res = await axios.post('http://localhost:4000/api/users/register', //<==testing
+            {
                 email: formData.email,
                 password: formData.password
             } ) 
             console.log(res);
             localStorage.setItem("comedyUser", JSON.stringify(res.data))
             if(res.status === 201){
-                navigate('/Home')
+                navigate('https://comedy-backend.onrender.com/home')
             }
             if(res.status !== 200 || 201 ){
                 return

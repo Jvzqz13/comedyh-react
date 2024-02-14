@@ -79,6 +79,9 @@ router.post('/register', async (req, res) => {
 } )
 
 
+
+
+
 // POST - LOG IN
 router.post('/login', 
 passport.authenticate('local', 

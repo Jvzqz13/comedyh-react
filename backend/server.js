@@ -9,8 +9,8 @@ import cookieParser from 'cookie-parser';
 const SECRETN = process.env.SECRETN;
 const SECRETO = process.env.SECRETO;
 
-import verifyToken from './token/verifyToken.js';
-import jwt from 'jsonwebtoken';
+// import verifyToken from './token/verifyToken.js';
+// import jwt from 'jsonwebtoken';
 
 // user passport to look for email
 import userPassport from './models/users.js';
@@ -77,9 +77,9 @@ app.use(express.urlencoded({ extended:true }))
 app.use('/api/users', userRouters);
 app.use('/api/profiles', profileRouter);
 
-app.get('/', verifyToken,  (req, res) => {
-    res.send('Welcome to the API')
-})
+// app.get('/', verifyToken,  (req, res) => {
+//     res.send('Welcome to the API')
+// })
 
 
 app.get('/signedout', (req, res) => {
@@ -111,7 +111,7 @@ passport.use(new LocalStrategy({
             resolve(res)
         } )
     })
-    const token = jwt.sign({ user }, process.env.SECRET,{ expiresIn: "24h" }) //<==token 
+    // const token = jwt.sign({ user }, process.env.SECRET,{ expiresIn: "24h" }) //<==token 
 
     console.log(`RESULT ${ result, token}`);
     if(result){
@@ -129,7 +129,7 @@ passport.use(new LocalStrategy({
 app.all('*', (req, res) =>{
 // CATCH ALL ROUTE
     try {
-        // res.status(404).send('404 this page missing')
+        res.status(404).send('404 this page missing')
         console.log(`ERROR: ${ req }`);
 
     } catch (error) {

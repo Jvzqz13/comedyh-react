@@ -6,8 +6,8 @@ import session from 'express-session';
 import bcrypt, { hash } from 'bcrypt';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-const SECRETN = process.env.SECRETN;
-const SECRETO = process.env.SECRETO;
+// const SECRETN = process.env.SECRETN;
+// const SECRETO = process.env.SECRETO;
 
 // import verifyToken from './token/verifyToken.js';
 // import jwt from 'jsonwebtoken';
@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 4000;
 // expression-session
 app.use(session ({
     name: "Auth-Sesh", 
-    secret: [ SECRETN, SECRETO ],
+    secret: "Comedy",
     resave: false,
     saveUninitialized: false,
     cookie: {secure: 'auto'}

@@ -18,10 +18,10 @@ function Register () {
             console.log(res);
             localStorage.setItem("comedyUser", JSON.stringify(res.data))
             if(res.status === 201){
-                navigate('https://comedy-backend.onrender.com/home')
+                navigate('/home')
             }
-            if(res.status !== 200 || 201 ){
-                return
+            else {
+                console.error('Registration failed')
             }
             
         } catch (error) {

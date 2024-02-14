@@ -12,10 +12,10 @@ function Login () {
                 password: formData.password
             })
             if(res.status === 200){
-                navigate('/https://comedy-backend.onrender.com/home')
+                navigate('/home')
             }
             if(res.status !== 200){
-                return 
+                console.error('Login Failed')
                 
             }
 
@@ -23,7 +23,7 @@ function Login () {
             localStorage.setItem("comedyUser", JSON.stringify(res.data))
            
         } catch (error) {
-            console.log(error);            
+            console.error(' Error during login, error')            
         }
     }
 

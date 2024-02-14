@@ -7,14 +7,14 @@ function Login () {
 
     const handleLogin = async (formData) =>{
         try {
-            const res = await axios.post('https://comedy-backend.onrender.com/api/users/login', {
+            const res = await axios.post('https://comedy-backend.onrender.com/api/users/login', {  
                 email: formData.email,
                 password: formData.password
             })
             if(res.status === 200){
                 navigate('/home')
             }
-            if(res.status !== 200){
+             else {
                 console.error('Login Failed')
                 
             }

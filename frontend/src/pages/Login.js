@@ -7,7 +7,7 @@ function Login () {
 
     const handleLogin = async (formData) =>{
         try {
-            const res = await axios.post('http://localhost:4000/api/users/login', {
+            const res = await axios.post('https://comedy-backend.onrender.com/api/users/login', {
                 email: formData.email,
                 password: formData.password
             })

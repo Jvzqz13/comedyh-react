@@ -19,7 +19,7 @@ This project was mainly to have a youtube clone for comedy only
 * Express-session
 * jsonwebtoken
 * Mongoose
-* Passport/Passport-local
+* Passport/Passport-local (authentication middleware)
 
 ## Youtube API HTTP Request
 * GET https://www.googleapis.com/youtube/v3/playlists

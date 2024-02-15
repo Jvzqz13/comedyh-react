@@ -2,6 +2,9 @@
 
 This project was mainly to have a youtube clone for comedy only
 
+* deployment https://comedy-frontend.netlify.app
+* backend deployment  https://comedy-backend.onrender.com
+
 ## Built with
 * MongoDB
 * ExpressJS
@@ -38,6 +41,10 @@ This project was mainly to have a youtube clone for comedy only
 * YoutubeRender takes in the YoutubeComponent and the playlist to render the videos, but this is used for just 1 playlist  
 * YoutubeDisplay takes in YoutubeComponent to render different playlists and great a gallery
 * YoutubeSpecials - Needs more work 
+
+## Up coming features 
+* finished pages
+* api for eventbrite to be able to see upcoming comedy events near you
 
 ## Known Issues
 * ## Alot... 
